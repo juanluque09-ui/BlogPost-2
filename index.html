@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>B1 Blog Post Tutor – Cambridge Exam Practice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #f4f4f8;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 1.5rem auto 2rem;
+      padding: 0 1rem;
+    }
+
+    header {
+      margin-bottom: 1.5rem;
+      text-align: center;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #fff;
+      padding: 1rem 0.5rem;
+      border-radius: 8px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #f0f0f0;
+    }
+
+    section {
+      margin-bottom: 1.5rem;
+      background: #fff;
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+      border-bottom: 2px solid #2563eb;
+      padding-bottom: 0.3rem;
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    .small-text {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .field-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .field-group {
+      flex: 1 1 200px;
+      min-width: 160px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.96rem;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.6rem;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+
+    #analyseBtn {
+      background: #2563eb;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    #randomTaskBtn {
+      background: #f97316;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    #randomTaskBtn:hover {
+      animation: wiggle 0.3s ease-in-out;
+    }
+
+    @keyframes wiggle {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      33% {
+        transform: rotate(-2deg);
+      }
+
+      66% {
+        transform: rotate(2deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    #resetBtn {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    #copyBtn {
+      background: #047857;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    #downloadBtn {
+      background: #6b21a8;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-right: 0.4rem;
+      margin-top: 0.2rem;
+    }
+
+    .pill-green {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .pill-red {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .pill-amber {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .stats-grid,
+    .feedback-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .card,
+    .feedback-category {
+      background: #f9fafb;
+      border-radius: 8px;
+      padding: 0.6rem 0.7rem;
+      border: 1px solid #e5e7eb;
+      font-size: 0.9rem;
+    }
+
+    .card h3,
+    .feedback-category h3 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .card ul,
+    .feedback-category ul {
+      padding-left: 1.1rem;
+      margin-top: 0.25rem;
+    }
+
+    .card ul li,
+    .feedback-category ul li {
+      margin-bottom: 0.15rem;
+    }
+
+    #feedbackText {
+      width: 100%;
+      margin-top: 0.4rem;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      font-size: 0.9rem;
+      min-height: 130px;
+      resize: vertical;
+      background: #f9fafb;
+    }
+
+    #overallScore {
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .tick {
+      color: #16a34a;
+      font-weight: 700;
+    }
+
+    .cross {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
+    .highlight-correct {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .highlight-error {
+      background-color: #fee2e2;
+      color: #991b1b;
+      text-decoration: line-through;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.45rem;
+      }
+
+      section {
+        padding: 0.8rem 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>B1 Blog Post Tutor – Cambridge Exam Practice</h1>
+      <p>Write or paste your blog post and get instant feedback on word count, structure, linkers and style. A blog post is an
+        informal online text where you share experiences, opinions and advice with the reader. Try to engage your audience and
+        use a friendly tone.</p>
+    </header>
+
+    <section>
+      <h2>📝 1. Task &amp; Student Text</h2>
+      <label for="blogText">Blog post text</label>
+      <textarea id="blogText" placeholder="Click 🎲 Random Task if you need an idea..."></textarea>
+      <div class="btn-row">
+        <button type="button" id="randomTaskBtn" onclick="setRandomTask()">🎲 Random Task</button>
+        <button type="button" id="analyseBtn" onclick="analyseBlogPost()">Analyse my blog post</button>
+        <button type="button" id="resetBtn" onclick="resetForm()">Clear</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>🔍 2. Analysis</h2>
+      <div class="card">
+        <strong>Word count:</strong>
+        <span id="wordCount">0</span>
+        <span id="wordCountStatus" class="pill pill-amber">Not analysed</span>
+      </div>
+      <div class="stats-grid">
+        <div class="card">
+          <h3>📚 Structure</h3>
+          <ul>
+            <li>Title: <span id="hasTitle">–</span></li>
+            <li>Intro: <span id="hasIntro">–</span></li>
+            <li>Body: <span id="hasBody">–</span></li>
+            <li>Closing: <span id="hasClosing">–</span></li>
+            <li>Paragraphs: <span id="paragraphCount">0</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🔗 Linkers</h3>
+          <ul id="linkerList"></ul>
+        </div>
+        <div class="card">
+          <h3>🎨 Style</h3>
+          <ul>
+            <li>Contractions: <span id="contractionCount">0</span></li>
+            <li>"you / your": <span id="youCount">0</span></li>
+            <li>Questions: <span id="questionCount">0</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>⚙️ Grammar</h3>
+          <ul>
+            <li>Past markers: <span id="pastMarkersCount">0</span></li>
+            <li>Present verbs: <span id="presentVerbsCount">0</span></li>
+            <li>Modals: <span id="modalsCount">0</span></li>
+            <li>Conditionals (if): <span id="conditionalsCount">0</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top:0.75rem;">
+        <h3>🖊️ Annotated Text</h3>
+        <div id="annotatedText" class="small-text"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>⭐ 3. Feedback &amp; Scores (Cambridge B1 Criteria)</h2>
+      <p class="small-text">Scores based on Cambridge B1 Writing Assessment Criteria:<br>
+        <strong>1–5 scale</strong>: 1 = needs major improvement • 3 = satisfactory • 5 = very good<br>
+        <b>Categories:</b> Content &amp; Communicative Achievement • Organisation • Language • Linkers &amp; Style</p>
+      <div class="feedback-grid">
+        <div class="feedback-category">
+          <h3>🧠 Content <span id="scoreContent">–</span></h3>
+          <p id="commentContent">No feedback</p>
+        </div>
+        <div class="feedback-category">
+          <h3>📌 Organisation <span id="scoreOrganisation">–</span></h3>
+          <p id="commentOrganisation">No feedback</p>
+        </div>
+        <div class="feedback-category">
+          <h3>🔤 Language <span id="scoreLanguage">–</span></h3>
+          <p id="commentLanguage">No feedback</p>
+        </div>
+        <div class="feedback-category">
+          <h3>✨ Linkers &amp; Style <span id="scoreLinkers">–</span></h3>
+          <p id="commentLinkers">No feedback</p>
+        </div>
+      </div>
+      <textarea id="feedbackText" readonly></textarea>
+      <div class="btn-row">
+        <button type="button" id="copyBtn" onclick="copyFeedback()">Copy</button>
+        <button type="button" id="downloadBtn" onclick="downloadFeedback()">Download</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // ---------- Utility functions ----------
+    function normaliseText(text) {
+      return text.toLowerCase();
+    }
+
+    function countWords(text) {
+      const words = text.trim().split(/\s+/).filter(Boolean);
+      return words.length;
+    }
+
+    // ---------- Random task selector ----------
+    function setRandomTask() {
+      const tasks = [
+        "Write about a family celebration and how you felt.",
+        "Describe a book or film you enjoyed and why you recommend it.",
+        "Talk about an important person in your life and why they are special.",
+        "Explain how you relax after school or work and give advice to the reader.",
+        "Share your thoughts about learning English and what helps you improve.",
+        "Write about your favourite hobby and why you enjoy it.",
+        "Describe a technology you use every day and why it's useful.",
+        "Write about a memorable trip and what you learnt.",
+        "Talk about your school life and give a suggestion.",
+        "Write about a sport or physical activity you enjoy and encourage readers to try it.",
+        "Describe a typical weekend and why you enjoy it.",
+        "Write about your favourite place in your city and suggest someone visit it.",
+        "Talk about something new you started recently and what you learnt."
+      ];
+      const random = tasks[Math.floor(Math.random() * tasks.length)];
+      const area = document.getElementById("blogText");
+      area.placeholder = random;
+      if (!area.value.trim()) {
+        area.value = random;
+      }
+    }
+
+    // ---------- Main analysis ----------
+    function analyseBlogPost() {
+      const textArea = document.getElementById("blogText");
+      const originalText = (textArea.value || "").trim();
+      const lowerText = normaliseText(originalText);
+
+      // WORD COUNT
+      const wordCount = countWords(originalText);
+      document.getElementById("wordCount").textContent = wordCount;
+      const status = document.getElementById("wordCountStatus");
+      if (wordCount === 0) {
+        status.textContent = "No text";
+        status.className = "pill pill-red";
+      } else if (wordCount >= 100 && wordCount <= 120) {
+        status.textContent = "Good B1 length";
+        status.className = "pill pill-green";
+      } else {
+        status.textContent = "Check length";
+        status.className = "pill pill-red";
+      }
+
+      // BASIC STRUCTURE (very simple heuristics)
+      const lines = originalText.split(/\n+/).map(l => l.trim()).filter(l => l.length > 0);
+      const paragraphCount = lines.length;
+      const hasIntro = paragraphCount > 0;
+      const hasBody = paragraphCount > 1 || wordCount > 60;
+      let hasClosing = false;
+      if (paragraphCount > 0) {
+        const lastLine = lines[lines.length - 1].toLowerCase();
+        if (
+          lastLine.includes("?") ||
+          /what do you think|let me know|tell me|hope you|try it|see you|thanks for reading/.test(lastLine)
+        ) {
+          hasClosing = true;
+        }
+      }
+      // Title is not separated in this version, so we mark "No"
+      document.getElementById("hasTitle").textContent = "No";
+      document.getElementById("hasIntro").textContent = hasIntro ? "Yes" : "No";
+      document.getElementById("hasBody").textContent = hasBody ? "Yes" : "No";
+      document.getElementById("hasClosing").textContent = hasClosing ? "Yes" : "No";
+      document.getElementById("paragraphCount").textContent = paragraphCount;
+
+      // LINKERS
+      const linkers = ["and", "but", "because", "so", "also", "then", "next", "finally", "however", "although"];
+      const linkerList = document.getElementById("linkerList");
+      linkerList.innerHTML = "";
+      let linkerMatches = 0;
+      let annotated = originalText;
+
+      linkers.forEach(l => {
+        const regex = new RegExp("\\b" + l + "\\b", "gi");
+        const matches = originalText.match(regex) || [];
+        linkerMatches += matches.length;
+
+        const li = document.createElement("li");
+        li.textContent = l + ": " + matches.length;
+        linkerList.appendChild(li);
+
+        annotated = annotated.replace(regex, match => "<span class=\"highlight-correct\">" + match + "</span>");
+      });
+
+      // STYLE: contractions, you/your, questions
+      const contractionPatterns = [
+        "i'm", "don't", "can't", "it's", "isn't", "won't", "didn't",
+        "i've", "i'll", "you're", "we're", "they're", "that's", "there's",
+        "couldn't", "shouldn't", "wouldn't", "haven't", "hasn't", "aren't"
+      ];
+      let contractionCount = 0;
+      contractionPatterns.forEach(form => {
+        const regex = new RegExp("\\b" + form + "\\b", "gi");
+        const matches = lowerText.match(regex);
+        if (matches) contractionCount += matches.length;
+      });
+      const youMatches = lowerText.match(/\b(you|your)\b/gi);
+      const youCount = youMatches ? youMatches.length : 0;
+      const questionCount = (originalText.match(/\?/g) || []).length;
+      document.getElementById("contractionCount").textContent = contractionCount;
+      document.getElementById("youCount").textContent = youCount;
+      document.getElementById("questionCount").textContent = questionCount;
+
+      // GRAMMAR PATTERNS
+      const pastMarkersList = ["yesterday", "last night", "last week", "last month", "last year", "ago", "when i was", "then"];
+      let pastMarkersCount = 0;
+      pastMarkersList.forEach(pm => {
+        const regex = new RegExp(pm, "gi");
+        const matches = lowerText.match(regex);
+        if (matches) pastMarkersCount += matches.length;
+      });
+
+      const presentVerbsList = ["like", "love", "enjoy", "hate", "prefer"];
+      let presentVerbsCount = 0;
+      presentVerbsList.forEach(v => {
+        const regex = new RegExp("\\b" + v + "\\b", "gi");
+        const matches = lowerText.match(regex);
+        if (matches) presentVerbsCount += matches.length;
+      });
+
+      const modalsList = ["should", "can", "could", "must", "might", "would"];
+      let modalsCount = 0;
+      modalsList.forEach(m => {
+        const regex = new RegExp("\\b" + m + "\\b", "gi");
+        const matches = lowerText.match(regex);
+        if (matches) modalsCount += matches.length;
+      });
+
+      const conditionalsCount = (lowerText.match(/\bif\b/g) || []).length;
+      document.getElementById("pastMarkersCount").textContent = pastMarkersCount;
+      document.getElementById("presentVerbsCount").textContent = presentVerbsCount;
+      document.getElementById("modalsCount").textContent = modalsCount;
+      document.getElementById("conditionalsCount").textContent = conditionalsCount;
+
+      // COMMON ERRORS & ANNOTATION
+      const commonErrors = {
+        "becouse": "because",
+        "whit": "with",
+        "wich": "which",
+        "dont": "don't",
+        "finaly": "finally",
+        "studing": "studying",
+        "realy": "really",
+        "alot": "a lot"
+      };
+      let errorCount = 0;
+      Object.keys(commonErrors).forEach(err => {
+        const regex = new RegExp(err, "gi");
+        if (regex.test(lowerText)) {
+          errorCount++;
+          annotated = annotated.replace(regex, match =>
+            "<span class=\"highlight-error\">" + match + "</span> (" +
+            "<span class=\"highlight-correct\">" + commonErrors[err] + "</span>)"
+          );
+        }
+      });
+
+      document.getElementById("annotatedText").innerHTML = annotated.replace(/\n/g, "<br>");
+
+      // SIMPLE SCORING (1–5)
+      let scoreContent = 1;
+      if (wordCount === 0) {
+        scoreContent = 1;
+      } else if (wordCount >= 100 && wordCount <= 120) {
+        scoreContent = 4;
+      } else {
+        scoreContent = 2;
+      }
+
+      let scoreOrganisation = linkersMatches >= 3 ? 4 : (linkersMatches > 0 ? 3 : 2);
+      let scoreLanguage = errorCount === 0 ? 5 : (errorCount < 3 ? 3 : 2);
+      let scoreLinkers = linkersMatches >= 2 ? 4 : (linkersMatches > 0 ? 3 : 2);
+
+      // Overall PET-style grade (simplified)
+      let overallScore = Math.round((scoreContent + scoreOrganisation + scoreLanguage + scoreLinkers) / 4);
+      let overallComment = overallScore >= 4 ? 'PASS (B1 level achieved)' : (overallScore === 3 ? 'Borderline – review key areas' : 'Below B1 – needs improvement');
+
+      document.getElementById("scoreContent").textContent = wordCount === 0 ? "–" : scoreContent;
+      document.getElementById("scoreOrganisation").textContent = wordCount === 0 ? "–" : scoreOrganisation;
+      document.getElementById("scoreLanguage").textContent = wordCount === 0 ? "–" : scoreLanguage;
+      document.getElementById("scoreLinkers").textContent = wordCount === 0 ? "–" : scoreLinkers;
+
+      document.getElementById("overallScore").textContent = 'Overall: ' + overallScore + ' – ' + overallComment + (overallScore >= 4 ? "
+You could reach B1 High if you use a wider range of linkers and avoid minor errors." : overallScore === 3 ? "
+You could reach B1 level if you improve cohesion and accuracy." : "");
+
+      document.getElementById("feedbackText").value = `${feedback}
+Overall Score: ${overallScore} – ${overallComment}${overallScore >= 4 ? '
+You could reach B1 High if you use a wider range of linkers and avoid minor errors.' : overallScore === 3 ? '
+You could reach B1 level if you improve cohesion and accuracy.' : ''}`;
+    }
+
+    // ---------- Reset & utilities ----------
+    function resetForm() {
+      document.getElementById("blogText").value = "";
+      document.getElementById("feedbackText").value = "";
+      document.getElementById("annotatedText").innerHTML = "";
+
+      document.getElementById("wordCount").textContent = "0";
+      document.getElementById("wordCountStatus").textContent = "Not analysed";
+      document.getElementById("wordCountStatus").className = "pill pill-amber";
+
+      document.getElementById("scoreContent").textContent = "–";
+      document.getElementById("scoreOrganisation").textContent = "–";
+      document.getElementById("scoreLanguage").textContent = "–";
+      document.getElementById("scoreLinkers").textContent = "–";
+      document.getElementById("commentContent").textContent = "No feedback";
+      document.getElementById("commentOrganisation").textContent = "No feedback";
+      document.getElementById("commentLanguage").textContent = "No feedback";
+      document.getElementById("commentLinkers").textContent = "No feedback";
+    }
+
+    function copyFeedback() {
+      const feedback = document.getElementById("feedbackText");
+      feedback.select();
+      document.execCommand("copy");
+    }
+
+    function downloadFeedback() {
+      const blob = new Blob([document.getElementById("feedbackText").value], { type: "text/plain" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "b1_blog_post_feedback.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    // ---------- Simple self-test (for debugging in console) ----------
+    function runSelfTests() {
+      console.log("Running basic tests...");
+      console.log("countWords('one two three') =>", countWords("one two three"));
+      console.log("countWords('   extra   spaces   ') =>", countWords("   extra   spaces   "));
+      console.log("normaliseText('HeLLo') =>", normaliseText("HeLLo"));
+    }
+    // You can call runSelfTests() from the browser console if you want to verify helpers.
+  </script>
+</body>
+</html>
