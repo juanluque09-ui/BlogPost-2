@@ -560,27 +560,22 @@
         scoreContent = 2;
       }
 
-      let scoreOrganisation = linkersMatches >= 3 ? 4 : (linkersMatches > 0 ? 3 : 2);
+      let scoreOrganisation = linkerMatches >= 3 ? 4 : (linkerMatches > 0 ? 3 : 2);
       let scoreLanguage = errorCount === 0 ? 5 : (errorCount < 3 ? 3 : 2);
       let scoreLinkers = linkersMatches >= 2 ? 4 : (linkersMatches > 0 ? 3 : 2);
 
       // Overall PET-style grade (simplified)
       let overallScore = Math.round((scoreContent + scoreOrganisation + scoreLanguage + scoreLinkers) / 4);
-      let overallComment = overallScore >= 4 ? 'PASS (B1 level achieved)' : (overallScore === 3 ? 'Borderline – review key areas' : 'Below B1 – needs improvement');
+      let overallComment = overallScore >= 4
+  ? "You could reach B1 High if you use a wider range of linkers and avoid minor errors."
+  : overallScore === 3
+  ? "You could reach B1 level if you improve cohesion and accuracy."
+  : "";
 
-      document.getElementById("scoreContent").textContent = wordCount === 0 ? "–" : scoreContent;
-      document.getElementById("scoreOrganisation").textContent = wordCount === 0 ? "–" : scoreOrganisation;
-      document.getElementById("scoreLanguage").textContent = wordCount === 0 ? "–" : scoreLanguage;
-      document.getElementById("scoreLinkers").textContent = wordCount === 0 ? "–" : scoreLinkers;
-
-      document.getElementById("overallScore").textContent = 'Overall: ' + overallScore + ' – ' + overallComment + (overallScore >= 4 ? "
-You could reach B1 High if you use a wider range of linkers and avoid minor errors." : overallScore === 3 ? "
-You could reach B1 level if you improve cohesion and accuracy." : "");
-
-      document.getElementById("feedbackText").value = `${feedback}
-Overall Score: ${overallScore} – ${overallComment}${overallScore >= 4 ? '
-You could reach B1 High if you use a wider range of linkers and avoid minor errors.' : overallScore === 3 ? '
-You could reach B1 level if you improve cohesion and accuracy.' : ''}`;
+// Display overall score properly
+document.getElementById("overallScore").textContent = `Overall: ${overallScore} – ${overallComment}`;
+document.getElementById("feedbackText").value = `Scores and comments included above.
+Overall Score: ${overallScore} – ${overallComment}`;
     }
 
     // ---------- Reset & utilities ----------
